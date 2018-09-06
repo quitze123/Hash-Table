@@ -74,10 +74,19 @@ void insert(uint32_t hash_val, Node * node, void ** table_info)
    int key = hash_val % (*temp)->size;
    int empty = is_empty(*temp, key);
    int match = FALSE;
+   /*
+   int load_factor = (*temp)->load_factor;
+
+   
+   if(load_factor == ((*temp)->size - 1))
+   {
+      printf("List is full!\n");
+      printf("resize and re-hash the list");
+   }
+   */
 
    if(empty == TRUE)
    {
-      printf("key : %i\n", key);
       (*temp)->hash_table[key] = node;
       (*temp)->load_factor++;
    }

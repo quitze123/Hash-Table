@@ -6,13 +6,13 @@
 
 void test_insert(void ** table_info)
 {
-   int size = 25;
+   int size = 32;
    int i = 0;
    
    uint32_t hash_val = 0;
    Node * temp = NULL;
 
-   char names[25][30] = {"Jose Flores", "Cristal Sancez", "Carmen Martinez",
+   char names[32][37] = {"Jose Flores", "Cristal Sancez", "Carmen Martinez",
                          "Cesar Castro", "Celia Castro", "Isaiah Espinoza",
                          "Lebron James", "Kevin Durant", "Daniel Cormier",
                          "Robin Whittaker", "Anthony Davis", "Steph Curry",
@@ -20,7 +20,10 @@ void test_insert(void ** table_info)
                          "Kobe Bryant","Draymond Green", "Jose Crus Arriaga",
                          "Emily Garcia", "Josh Diaz", "Moochael Nguey",
                          "Preston Sirois", "JOse Flores", "Stanley Chu",
-                         "Viks Vaporru"};
+                         "Viks Vaporru", "Vince", "Jordan", "Tara Smith", 
+                         "Beth Vordova", "Advising", "lfdjkslkjf sdjkfl kdfjls",
+                         "ajajajajuqmkeoxlaqoncdludl8882h1h3h3"};
+
    for(i = 0; i < size; i++)
    {
       hash_val = hash((void *)names[i], strlen(names[i]));
