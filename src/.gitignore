@@ -1,5 +1,6 @@
 #Don't track these content
 
 *.o
-..
-.
+*./a.out
+*..
+*.
