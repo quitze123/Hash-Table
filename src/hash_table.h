@@ -24,7 +24,9 @@ void * init_table();
 uint32_t hash(void * key, size_t len);
 void insert(uint32_t hash_val, Node * node, void ** table_info);
 int is_empty(Table_Info * table_info, int key);
-int is_match(Node * user_node, Node * temp_node);
+int is_match(char * user_name, char * temp_name);
 void free_table(void * table_info);
 void collision(Node * user_info, Node ** node);
+void remove_node(void ** table_info, void * user_input);
+
 #endif

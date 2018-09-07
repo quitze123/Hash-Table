@@ -84,7 +84,7 @@ void insert(uint32_t hash_val, Node * node, void ** table_info)
    {
       temp_node = (*temp)->hash_table[key];
       
-      match = is_match(node,temp_node);
+      match = is_match((char *)node->full_name,(char *)temp_node->full_name);
       if(match == TRUE)
       {
          free(node->full_name);
@@ -119,16 +119,18 @@ int is_empty(Table_Info * table_info, int key)
    return FALSE;
 }
 
-int is_match(Node * user_node, Node * temp_node)
+int is_match(char * user_name, char * temp_name)
 {
-   char * name_1 = ((char *)user_node->full_name);
-   char * name_2 = ((char *)temp_node->full_name);
-
-   if(strcmp(name_1, name_2) == 0)
+   if(strcmp(user_name, temp_name) == 0)
    {
       return TRUE;
    }
    return FALSE;
+}
+
+void remove_node(void ** table_info, void * user_input)
+{
+
 }
 
 void free_table(void * table_info)
