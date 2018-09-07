@@ -7,22 +7,42 @@
 #include "ui.h"
 #include "test_functions.h"
 
-#define TEST 1
-#define RUN_TEST 0
-
 enum Tests
 {
    INSERT, LOOKUP, REMOVE
 };
 
-int main(void)
+void usage()
+{
+   printf("usage : ./a.out [INSERT=0, LOOKUP=1, REMOVE=2]\n");
+}
+
+int convert_num(char * arg)
+{
+   int num = atoi(arg);
+
+   return num;
+}
+
+int main(int argc, char ** argv)
 {
    void * table_info = run();
 
-   if(TEST)
+   int RUN_TEST = -1;
+
+   if(argc > 1 && argc <= 2)
    {
+      RUN_TEST = convert_num(argv[1]);
+
       if(RUN_TEST == INSERT)
          test_insert(&table_info);
+      else if(RUN_TEST == LOOKUP)
+         printf("Test lookup.\n");
+      
+   }
+   else if(argc > 2)
+   {
+      usage();
    }
    else
    {
@@ -30,5 +50,6 @@ int main(void)
    }
 
    free_table(table_info);
+
    return 0;
 }

@@ -7,11 +7,6 @@
 
 #define SIZE 2
 
-void find_key(void * key)
-{
-   printf("%s\n", (char *)key);
-}
-
 void interface(void ** table_info)
 {
    int i = 0;
@@ -28,9 +23,10 @@ void interface(void ** table_info)
       c = -1;
       i = 0;
 
-      printf("1. [E/e] Enter a value into the table.\n");
-      printf("2. [P/p] Print key values.\n");
-      printf("3. [Q/q] Quit\n"); 
+      printf("1. [E] Enter a value into the table.\n");
+      printf("2. [P] Print key values.\n");
+      printf("3. [R] Remove key.\n");
+      printf("4. [Q/q] Quit\n"); 
       printf("\nEnter your choice : ");
       while(c != '\n')
       {
@@ -51,8 +47,52 @@ void interface(void ** table_info)
             break;
          case 'p':
             print_table(*table_info);
+            break;
+         case 'r':
+            printf("Remove key.\n");
+            remove_data(table_info);
+            break;
+            
       }
    }
+}
+
+void remove_data(void ** table_info)
+{
+   void * user_input = get_user_info();
+   remove_node(table_info, user_input);
+   free(user_input);
+
+}
+
+void * get_user_info()
+{
+   int len = 37;
+   int c = -1;
+   int user_input_len = 0;
+   
+   void * user_input = calloc(len, sizeof(char));
+   if(user_input == NULL)
+   {
+      perror("calloc(...) failed");
+      exit(EXIT_FAILURE);
+   }
+
+   printf("Please enter the full name( < 36 chars): ");
+
+   while(c != '\n')
+   {
+      c = fgetc(stdin);
+      if(user_input_len < len)
+      {
+         ((char *)user_input)[user_input_len] = c;
+         user_input_len++;
+      }
+   }
+
+   ((char *)user_input)[user_input_len - 1] = '\0';
+
+   return user_input;
 }
 
 void print_table(void * table_info)
@@ -81,10 +121,6 @@ void print_table(void * table_info)
 
 Node * enter_info(void)
 {
-   int len = 37;
-   int c = -1;
-   int user_name_len = 0;
-
    Node * node = calloc(1,sizeof(Node));
    if(node == NULL)
    {
@@ -92,29 +128,10 @@ Node * enter_info(void)
       exit(EXIT_FAILURE);
    }
 
-   node->full_name = calloc(len, sizeof(char));
-   if(node->full_name == NULL)
-   {
-      perror("calloc(...) failed");
-      exit(EXIT_FAILURE);
-   }
+   node->full_name = get_user_info();
 
    node->next = NULL;
    node->prev = NULL;
    
-   printf("Please enter the full name( < 36 chars): ");
-   
-   while(c != '\n')
-   {
-      c = fgetc(stdin);
-      if(user_name_len < len)
-      {
-         ((char *)node->full_name)[user_name_len] = c;
-         user_name_len++;
-      }
-   }
-
-   ((char *)node->full_name)[user_name_len - 1] = '\0';
-
    return node;
 }
