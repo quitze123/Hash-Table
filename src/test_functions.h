@@ -6,5 +6,6 @@
 
 void test_insert(void ** table_info);
 Node * test_insert_name(char * name);
+void test_remove(void ** table_info);
 
 #endif

@@ -49,7 +49,7 @@ void interface(void ** table_info)
             print_table(*table_info);
             break;
          case 'r':
-            printf("Remove key.\n");
+            printf("\nRemove key.\n");
             remove_data(table_info);
             break;
             
@@ -61,6 +61,7 @@ void remove_data(void ** table_info)
 {
    void * user_input = get_user_info();
    remove_node(table_info, user_input);
+   printf("Calling free on %s\n", (char *)user_input);
    free(user_input);
 
 }

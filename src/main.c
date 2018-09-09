@@ -35,10 +35,18 @@ int main(int argc, char ** argv)
       RUN_TEST = convert_num(argv[1]);
 
       if(RUN_TEST == INSERT)
+      {
          test_insert(&table_info);
+      }
       else if(RUN_TEST == LOOKUP)
+      {
          printf("Test lookup.\n");
-      
+      }
+      else
+      {
+         test_insert(&table_info);
+         test_remove(&table_info);
+      }
    }
    else if(argc > 2)
    {

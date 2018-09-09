@@ -31,7 +31,6 @@ void test_insert(void ** table_info)
       insert(hash_val, temp, table_info);
    }
 
-   print_table(*table_info);
    
    
 }
@@ -61,4 +60,24 @@ Node * test_insert_name(char * name)
 
    return node;
 
+}
+
+
+void test_remove(void ** table_info)
+{
+   int size = 9;
+   int i = 0;
+
+   char remove_names[9][37] = {"Robin Whittaker", "Jose Crus Arriaga", "Cesar Castro", 
+                               "Henry Cejudo", "ajajajajuqmkeoxlaqoncdludl8882h1h3h3",
+                               "Jose Flores", "This name is not here.",
+                               "Lebron James", "Jose Flores"};
+   for(i = 0; i < size; i++)
+   {
+      printf("Removing : %s\n", remove_names[i]);
+      remove_node(table_info, (void *)remove_names[i]);
+      printf("Removed : %s\n", remove_names[i]);
+   }
+
+   print_table(*table_info);
 }
