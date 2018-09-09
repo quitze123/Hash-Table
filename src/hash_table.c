@@ -139,6 +139,7 @@ void remove_node(void ** table_info, void * user_input)
    uint32_t hash_val= hash(user_input, strlen((char *)user_input));
    
    int key = hash_val % (*temp_s_ptr)->size;
+   int match = 0;
 
    ptr = temp_ht_ptr[key];
 
@@ -147,7 +148,8 @@ void remove_node(void ** table_info, void * user_input)
    {
       while(ptr != NULL)
       {
-         if(strcmp((char *)ptr->full_name, (char *) user_input) == 0)
+         match = is_match((char *)ptr->full_name, (char *)user_input);
+         if(match == TRUE)
          {
             if(ptr->prev == NULL && ptr->next != NULL)
             {
