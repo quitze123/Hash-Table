@@ -130,7 +130,62 @@ int is_match(char * user_name, char * temp_name)
 
 void remove_node(void ** table_info, void * user_input)
 {
+   Table_Info ** temp_s_ptr = (Table_Info **)table_info;
 
+   void ** temp_ht_ptr = (*temp_s_ptr)->hash_table;
+
+   Node * ptr = NULL;
+
+   uint32_t hash_val= hash(user_input, strlen((char *)user_input));
+   
+   int key = hash_val % (*temp_s_ptr)->size;
+
+   ptr = temp_ht_ptr[key];
+
+   
+   if(ptr != NULL)
+   {
+      while(ptr != NULL)
+      {
+         if(strcmp((char *)ptr->full_name, (char *) user_input) == 0)
+         {
+            if(ptr->prev == NULL && ptr->next != NULL)
+            {
+               ptr = ptr->next;
+               free(ptr->prev->full_name);
+               free(ptr->prev);
+               temp_ht_ptr[key] = ptr;
+               ptr->prev = NULL;
+            }
+            else if(ptr->prev != NULL && ptr->next == NULL)
+            {
+               ptr->prev->next = NULL;
+               free(ptr->full_name);
+               free(ptr);
+            }
+            else if(ptr->prev == NULL && ptr->next == NULL)
+            {
+               free(ptr->full_name);
+               free(ptr);
+               temp_ht_ptr[key] = NULL;
+               (*temp_s_ptr)->load_factor--;
+            }
+            else
+            {
+               ptr->prev->next = ptr->next;
+               ptr->next->prev = ptr->prev;
+               free(ptr->full_name);
+               free(ptr);
+            }
+            break;
+         }
+         ptr = ptr->next;
+      }
+   }
+   else
+   {
+      printf("\n'%s' was not found.\n\n", (char *)user_input);
+   }
 }
 
 void free_table(void * table_info)
